@@ -15,4 +15,4 @@ public class LM_Fragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.lm_fragment, container, false);
     }
-}gm
+}

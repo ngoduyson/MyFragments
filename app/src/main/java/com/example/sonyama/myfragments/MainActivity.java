@@ -1,5 +1,9 @@
 package com.example.sonyama.myfragments;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,18 +18,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        Configuration config = getResources().getConfiguration();
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Check the device orientation and act accordingly
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            LM_Fragment lm_fragment = new LM_Fragment();
+            fragmentTransaction.replace(android.R.id.content, lm_fragment);
+        } else {
+            PM_Fragment pm_fragment = new PM_Fragment();
+            fragmentTransaction.replace(android.R.id.content, pm_fragment);
+        }
+        fragmentTransaction.commit();
     }
 
     @Override
